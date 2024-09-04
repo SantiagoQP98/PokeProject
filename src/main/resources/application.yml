@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: pokeproject
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mydatabase?currentSchema=pokemon  # Usa H2 para pruebas; cambia a tu base de datos real en producción
+    driver-class-name: org.postgresql.Driver
+    username: root
+    password: root
+    hikari:
+      maximum-pool-size: 10
+      connection-timeout: 30000
+  redis:
+    host: localhost
+    port: 6379
+  cache:
+    type: redis
+
+server:
+  port: 8080  # Puerto en el que se ejecutará la aplicación
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG  # Ajusta el nivel de logging según sea necesario
+
+# Configuración de seguridad (si aplica)
+security:
+  basic:
+    enabled: false  # Ajusta según la configuración de seguridad de tu aplicación
+
+# Otros ajustes personalizados
+pokeapi:
+  base-url: https://pokeapi.co/api/v2/ #http://localhost:3000/pokemon150
+  timeout: 5000  # Tiempo de espera para las solicitudes a la PokeAPI
+
+# Configuración de perfiles
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  redis:
+    host: localhost
+    port: 6379
